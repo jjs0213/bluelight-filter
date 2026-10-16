@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="블루라이트 차단 웹 앱 - 눈의 피로를 줄이고 더 편안한 화면을 경험하세요" />
+  <title>눈 보호 | 블루라이트 필터</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Blue Light Filter Overlay -->
+  <div id="filter-overlay" class="filter-overlay"></div>
+
+  <!-- Main App -->
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" stroke="url(#logoGrad)" stroke-width="2"/>
+            <path d="M20 8 C20 8 12 14 12 20 C12 25 15.5 28 20 28 C24.5 28 28 25 28 20 C28 14 20 8 20 8Z" fill="url(#sunGrad)"/>
+            <path d="M20 14 C20 14 15 17 15 20 C15 22.5 17.2 24 20 24 C22.8 24 25 22.5 25 20 C25 17 20 14 20 14Z" fill="rgba(255,255,255,0.9)"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40">
+                <stop offset="0%" stop-color="#ff8c42"/>
+                <stop offset="100%" stop-color="#ff6b35"/>
+              </linearGradient>
+              <linearGradient id="sunGrad" x1="20" y1="8" x2="20" y2="28">
+                <stop offset="0%" stop-color="#ffd166"/>
+                <stop offset="100%" stop-color="#ff8c42"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>눈 보호</h1>
+          <p>블루라이트 필터</p>
+        </div>
+      </div>
+      <div class="header-status" id="status-badge">
+        <span class="status-dot"></span>
+        <span id="status-text">꺼짐</span>
+      </div>
+    </header>
+
+    <!-- Main Toggle -->
+    <section class="hero-section">
+      <div class="toggle-card glass-card">
+        <div class="toggle-info">
+          <h2 id="toggle-title">필터 꺼짐</h2>
+          <p id="toggle-desc">블루라이트 필터를 켜서 눈의 피로를 줄이세요</p>
+        </div>
+        <button class="power-btn" id="power-btn" aria-label="블루라이트 필터 켜기/끄기">
+          <div class="power-btn-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M12 2v4M6.34 6.34 3.51 3.51M2 12H6M6.34 17.66l-2.83 2.83M12 18v4M17.66 17.66l2.83 2.83M18 12h4M17.66 6.34l2.83-2.83"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+          </div>
+          <div class="power-ring"></div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="controls-section">
+      <!-- Intensity Slider -->
+      <div class="control-card glass-card" id="intensity-card">
+        <div class="control-header">
+          <div class="control-icon orange-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </div>
+          <div class="control-label">
+            <span class="label-title">필터 강도</span>
+            <span class="label-sub">블루라이트 차단 세기</span>
+          </div>
+          <span class="control-value" id="intensity-val">50%</span>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="intensity-slider" class="custom-slider orange-slider"
+            min="0" max="100" value="50" step="0.1" />
+          <div class="slider-labels">
+            <span>약하게</span>
+            <span>강하게</span>
+          </div>
+        </div>
+        <!-- Fine control row -->
+        <div class="fine-control-row">
+          <div class="step-btns">
+            <button class="step-btn" id="int-minus-1"   data-target="intensity" data-delta="-1"   title="-1">−1</button>
+            <button class="step-btn" id="int-minus-01"  data-target="intensity" data-delta="-0.1" title="-0.1">−0.1</button>
+            <button class="step-btn" id="int-plus-01"   data-target="intensity" data-delta="0.1"  title="+0.1">+0.1</button>
+            <button class="step-btn" id="int-plus-1"    data-target="intensity" data-delta="1"    title="+1">+1</button>
+          </div>
+          <div class="num-input-wrap">
+            <input type="number" id="intensity-num" class="num-input" min="0" max="100" value="50" step="0.1" />
+            <span class="num-unit">%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Warmth / Color Temperature -->
+      <div class="control-card glass-card" id="warmth-card">
+        <div class="control-header">
+          <div class="control-icon amber-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+              <path d="M12 2v10l4.5 4.5"/>
+            </svg>
+          </div>
+          <div class="control-label">
+            <span class="label-title">색온도</span>
+            <span class="label-sub">따뜻한 색상으로 조절</span>
+          </div>
+          <span class="control-value" id="warmth-val">6500K</span>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="warmth-slider" class="custom-slider amber-slider"
+            min="1500" max="6500" value="6500" step="10" />
+          <div class="slider-labels">
+            <span>🕯️ 촛불</span>
+            <span>☀️ 일광</span>
+          </div>
+        </div>
+        <!-- Fine control row -->
+        <div class="fine-control-row">
+          <div class="step-btns">
+            <button class="step-btn amber-step" id="wm-minus-100" data-target="warmth" data-delta="-100" title="-100K">−100</button>
+            <button class="step-btn amber-step" id="wm-minus-10"  data-target="warmth" data-delta="-10"  title="-10K">−10</button>
+            <button class="step-btn amber-step" id="wm-plus-10"   data-target="warmth" data-delta="10"   title="+10K">+10</button>
+            <button class="step-btn amber-step" id="wm-plus-100"  data-target="warmth" data-delta="100"  title="+100K">+100</button>
+          </div>
+          <div class="num-input-wrap">
+            <input type="number" id="warmth-num" class="num-input amber-num" min="1500" max="6500" value="6500" step="10" />
+            <span class="num-unit">K</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Presets -->
+    <section class="presets-section">
+      <h3 class="section-title">프리셋</h3>
+      <div class="presets-grid">
+        <button class="preset-btn" id="preset-off" data-intensity="0" data-warmth="6500">
+          <div class="preset-icon">💻</div>
+          <span class="preset-name">기본</span>
+          <span class="preset-desc">필터 없음</span>
+        </button>
+        <button class="preset-btn" id="preset-reading" data-intensity="30" data-warmth="5000">
+          <div class="preset-icon">📖</div>
+          <span class="preset-name">독서</span>
+          <span class="preset-desc">약한 필터</span>
+        </button>
+        <button class="preset-btn" id="preset-study" data-intensity="50" data-warmth="4000">
+          <div class="preset-icon">📚</div>
+          <span class="preset-name">공부</span>
+          <span class="preset-desc">중간 필터</span>
+        </button>
+        <button class="preset-btn" id="preset-night" data-intensity="80" data-warmth="2000">
+          <div class="preset-icon">🌙</div>
+          <span class="preset-name">야간</span>
+          <span class="preset-desc">강한 필터</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="schedule-section">
+      <div class="schedule-card glass-card">
+        <div class="schedule-header">
+          <div class="schedule-title-group">
+            <div class="control-icon purple-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <span class="label-title">자동 스케줄</span>
+              <span class="label-sub">시간에 따라 자동으로 켜기</span>
+            </div>
+          </div>
+          <label class="toggle-switch" for="schedule-toggle">
+            <input type="checkbox" id="schedule-toggle" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="schedule-times" id="schedule-times" style="display:none;">
+          <div class="time-input-group">
+            <label for="schedule-start">시작 시간</label>
+            <input type="time" id="schedule-start" value="22:00" />
+          </div>
+          <div class="time-divider">→</div>
+          <div class="time-input-group">
+            <label for="schedule-end">종료 시간</label>
+            <input type="time" id="schedule-end" value="07:00" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Eye Health Tips -->
+    <section class="tips-section">
+      <h3 class="section-title">👁️ 눈 건강 팁</h3>
+      <div class="tips-carousel">
+        <div class="tip-card active-tip" id="tip-0">
+          <span class="tip-icon">⏱️</span>
+          <strong>20-20-20 규칙</strong>
+          <p>20분마다 20피트(6m) 거리를 20초 동안 바라보세요</p>
+        </div>
+        <div class="tip-card" id="tip-1">
+          <span class="tip-icon">💧</span>
+          <strong>눈 깜빡임</strong>
+          <p>화면을 볼 때 의식적으로 자주 눈을 깜빡여 건조함을 예방하세요</p>
+        </div>
+        <div class="tip-card" id="tip-2">
+          <span class="tip-icon">🌙</span>
+          <strong>취침 전 사용</strong>
+          <p>자기 1~2시간 전부터 화면 밝기를 낮추고 블루라이트를 차단하세요</p>
+        </div>
+        <div class="tip-card" id="tip-3">
+          <span class="tip-icon">📏</span>
+          <strong>올바른 자세</strong>
+          <p>화면과 눈 사이 거리는 최소 50~60cm를 유지하세요</p>
+        </div>
+      </div>
+      <div class="tip-dots" id="tip-dots">
+        <button class="tip-dot active" data-index="0"></button>
+        <button class="tip-dot" data-index="1"></button>
+        <button class="tip-dot" data-index="2"></button>
+        <button class="tip-dot" data-index="3"></button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>눈의 건강을 위해 적절한 휴식을 취하세요 ❤️</p>
+      <div class="current-time" id="current-time"></div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
